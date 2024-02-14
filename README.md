@@ -47,6 +47,10 @@ They are almost self-explanatory.
 
 ## Change Log
 
+### v0.12 beta
+
+- Fixed: https://github.com/qky666/dokuwiki-plugin-odtplus2dw/issues/8
+
 ### v0.11 beta
 
 - Now the names of uploaded files can contain spaces.

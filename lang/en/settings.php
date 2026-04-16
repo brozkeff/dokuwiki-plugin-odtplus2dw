@@ -19,35 +19,36 @@ $lang['parserXslFile']            = "Name of the xslFile used to transform";
 $lang['parserLinkToOriginalFile'] = "Create a link to original file into the dokuwiki page";
 $lang['parserCoreTimeOut']        = "Special TimeOut used when parsing the odt content by xslt (default : 300).";
 $lang['parserUploadDir']          = "Path where the file will be uploaded";
+$lang['enableUnsafeLegacyConverters'] = "<div>Enable legacy DOC and DOCX conversion helpers</div>
+                                     <div>Disabled by default because they depend on external converters and increase the attack surface.</div>
+                                     <div>Enable only if you explicitly need DOC/DOCX import and have validated the local command setup.</div>";
 $lang['parserMimeTypeAuthorized'] = "<div>Mimetypes authorized to upload</div>
                                      <div>
                                        Default: 
                                        <tt>
                                          application/vnd.oasis.opendocument.text
                                          application/octetstream
-                                         application/vnd.openxmlformats-officedocument.wordprocessingml.document
-                                         application/msword
                                        </tt>
                                      </div>
                                      <div><b>application/vnd.oasis.opendocument.text</b> default common .odt mimetype</div>
                                      <div><b>application/octetstream</b> mimetype used by Chrome on Windows XP for .odt files</div>
-                                     <div><b>application/vnd.openxmlformats-officedocument.wordprocessingml.document</b> .docx mimetype</div>
-                                     <div><b>application/msword</b> .doc mimetype</div>
+                                     <div><b>application/vnd.openxmlformats-officedocument.wordprocessingml.document</b> .docx mimetype, available only when legacy converters are enabled</div>
+                                     <div><b>application/msword</b> .doc mimetype, available only when legacy converters are enabled</div>
                                      <div>Add missing mimetypes if necessary</div>
                                      <div>Leave empty to disable the control.</div>";
 $lang['parserMimeTypePandoc']     = "<div>Mimetypes that need Pandoc conversion</div>
                                      <div>
-                                       Default: 
+                                       Default when legacy converters are enabled:
                                        <tt>
                                          application/vnd.openxmlformats-officedocument.wordprocessingml.document
                                        </tt>
                                      </div>
-                                     <div>Add missing mimetypes if necessary. Remember to add them to parserMimeTypeAuthorized too (if used).</div>";
+                                     <div>Add missing mimetypes if necessary.</div>";
 $lang['parserMimeTypeSOffice']    = "<div>Mimetypes that need SOffice conversion</div>
                                      <div>
-                                       Default: 
+                                       Default when legacy converters are enabled:
                                        <tt>
                                          application/msword
                                        </tt>
                                      </div>
-                                     <div>Add missing mimetypes if necessary. Remember to add them to parserMimeTypeAuthorized too (if used).</div>";
+                                     <div>Add missing mimetypes if necessary.</div>";

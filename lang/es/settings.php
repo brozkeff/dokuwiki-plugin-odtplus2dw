@@ -18,6 +18,9 @@ $lang['parserXslFile']            = "Nombre del archivo xsl utilizado en la tran
 $lang['parserLinkToOriginalFile'] = "Crear un enlace al archivo original en la página dokuwiki";
 $lang['parserCoreTimeOut']        = "Tiempo máximo de espera especial usado por el xslt al analizar el contenido odt (valor por defecto: 300).";
 $lang['parserUploadDir']          = "Ruta en la que se subirá el archivo";
+$lang['enableUnsafeLegacyConverters'] = "<div>Activar los conversores heredados para DOC y DOCX</div>
+                                     <div>Está desactivado por defecto porque depende de herramientas externas y aumenta la superficie de ataque.</div>
+                                     <div>Actívalo solo si realmente necesitas importar DOC o DOCX y has validado la configuración local.</div>";
 $lang['parserMimeTypeAuthorized'] = "<div>Mimetypes permitidos para subir</div>
                                      <div>
                                        Valor por defecto: 

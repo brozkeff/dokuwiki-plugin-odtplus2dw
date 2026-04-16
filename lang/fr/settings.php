@@ -20,6 +20,9 @@ $lang['parserXslFile']            = "Fichier xsl à utiliser pour la conversion.
 $lang['parserLinkToOriginalFile'] = "Créer un lien vers le fichier original dans la page du wiki.";
 $lang['parserCoreTimeOut']        = "Délai maximum utilisé pour l'analyse du document (defaut : 300).";
 $lang['parserUploadDir']          = "Dossier où enregistrer le fichier téléversé";
+$lang['enableUnsafeLegacyConverters'] = "<div>Activer les convertisseurs hérités pour DOC et DOCX</div>
+                                     <div>Désactivé par défaut, car ils dépendent d'outils externes et augmentent la surface d'attaque.</div>
+                                     <div>À activer seulement si vous avez réellement besoin de l'import DOC ou DOCX et avez validé votre configuration locale.</div>";
 $lang['parserMimeTypeAuthorized'] = "<div>Types MIME autorisés pour l'envoi</div>
                                      <div>
                                        Par defaut: 

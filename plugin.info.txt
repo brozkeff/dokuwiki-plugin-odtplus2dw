@@ -1,7 +1,7 @@
-base   odtplus2dw
-author Jose Torrecilla, contributor Georges Khaznadar
-email  qky669@gmail.com
-date   2022-06-05
-name   odtplus2dw plugin
+base   odtplusplus2dw
+author Martin "brozkeff" Malec, Jose Torrecilla, contributor Georges Khaznadar
+email  martin@brozkeff.net
+date   2026-04-16
+name   odtplusplus2dw plugin
 desc   Create a dokuwiki page from a file
-url    http://www.dokuwiki.org/plugin:odtplus2dw
+url    https://github.com/brozkeff/dokuwiki-plugin-odtplus2dw

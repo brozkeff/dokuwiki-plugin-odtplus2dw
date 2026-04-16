@@ -1,6 +1,6 @@
 <?php
 
-namespace dokuwiki\plugin\odtplus2dw;
+namespace dokuwiki\plugin\odtplusplus2dw;
 use dokuwiki\Menu\Item\AbstractItem;
 
 /**
@@ -8,11 +8,11 @@ use dokuwiki\Menu\Item\AbstractItem;
  *
  * Implements the import button for DokuWiki's menu system
  *
- * @package dokuwiki\plugin\odtplus2dw
+ * @package dokuwiki\plugin\odtplusplus2dw
  */
 class MenuItem extends AbstractItem {
     /** @var string do action for this plugin */
-    public $type = 'odtplus2dw';
+    public $type = 'odtplusplus2dw';
     /** @var string icon file */
     public $svg = __DIR__ . '/writer.svg';
     /**
@@ -29,7 +29,7 @@ class MenuItem extends AbstractItem {
      * @return string
      */
     public function getLabel() {
-        $hlp = plugin_load('action', 'odtplus2dw');
+        $hlp = plugin_load('action', 'odtplusplus2dw');
         return $hlp->getLang('import_button');
     }
 }

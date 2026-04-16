@@ -15,7 +15,7 @@ $lang['formPageExistMessage'] = "**WARNING!!! This page already exist. If you up
 ";
 $lang['import_button'] = "Import file";
 
-$lang['parserSummary'] = "File build by odtplus2dw plugin from file";
+$lang['parserSummary'] = "File build by odtplusplus2dw plugin from file";
 $lang['parserOriginalFile'] = "Original file";
 
 $lang['xsl_subtable_message'] = "FIXME: A complex table was detected, you will probably need to make manual corrections.";
@@ -39,7 +39,7 @@ $lang['er_checkUploadResult'] = "Something is wrong with the uploaded file";
 $lang['er_class_domDocument'] = "Fatal error: Unable to initialize DOMDocument object";
 $lang['er_class_xsltProcessor'] = "Fatal error: Unable to initialize XsltProcessor object";
 $lang['er_class_zipArchive'] = "Fatal error: Unable to initialize ZipArchive object";
-$lang['er_id'] = "Wrong use of this plugin. _odtplus2dw must be called with defined namepage (\$ID)";
+$lang['er_id'] = "Wrong use of this plugin. _odtplusplus2dw must be called with defined namepage (\$ID)";
 $lang['er_img_rename'] = "Unable to rename the image file";
 $lang['er_img_unzip'] = "Unable to extract the image file";
 $lang['er_invalidRoot'] = "RootNode of uploaded document is wrong. The file might be corrupt";
@@ -49,7 +49,7 @@ $lang['er_logFile'] = "Unable to write in the logFile";
 $lang['er_msg_nomessage'] = "Wrong use of this plugin. _msg must be called with a message";
 $lang['er_file_format'] = "Wrong file upload. The file type is not supported";
 $lang['er_file_getFromDownload'] = "Unable to catch the upload file";
-$lang['er_file_miss'] = "Wrong use of this plugin. _odtplus2dw must be called by an upload file form";
+$lang['er_file_miss'] = "Wrong use of this plugin. _odtplusplus2dw must be called by an upload file form";
 $lang['er_file_tmpDir'] = "Unable to create the work temporary directory.";
 $lang['er_file_unzip'] = "Unable to extract the file";
 $lang['er_file_upload'] = "Something went wrong with the file's upload";

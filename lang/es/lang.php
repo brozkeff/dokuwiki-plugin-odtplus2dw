@@ -15,7 +15,7 @@ $lang['formPageExistMessage'] = "**¡¡¡ADVERTENCIA!!! Esta página ya existe. 
 ";
 $lang['import_button'] = "Importar archivo";
 
-$lang['parserSummary'] = "Archivo construido por el plugin odtplus2dw a partir de un archivo";
+$lang['parserSummary'] = "Archivo construido por el plugin odtplusplus2dw a partir de un archivo";
 $lang['parserOriginalFile'] = "Archivo original";
 
 $lang['xsl_subtable_message'] = "ARRÉGLAME: Se ha detectado una tabla compleja, probablemente necesitarás hacer correcciones manuales.";
@@ -39,7 +39,7 @@ $lang['er_checkUploadResult'] = "Hay algo incorrecto en el archivo subido";
 $lang['er_class_domDocument'] = "Error fatal: Imposible inicializar el objeto DOMDocument";
 $lang['er_class_xsltProcessor'] = "Error fatal: Imposible inicializar el objeto XsltProcessor";
 $lang['er_class_zipArchive'] = "Error fatal: Imposible inicializar el objeto ZipArchive";
-$lang['er_id'] = "Uso erróneo de este plugin. Se debe llamar a _odtplus2dw con un nombre de página definido (\$ID)";
+$lang['er_id'] = "Uso erróneo de este plugin. Se debe llamar a _odtplusplus2dw con un nombre de página definido (\$ID)";
 $lang['er_img_rename'] = "Imposible renombrar el archivo de imagen";
 $lang['er_img_unzip'] = "Imposible extraer el archivo de imagen";
 $lang['er_invalidRoot'] = "El RootNode del archivo subido es incorrecto. El archivo podría estar corrupto";
@@ -49,7 +49,7 @@ $lang['er_logFile'] = "Imposible escribir en el archivo de log";
 $lang['er_msg_nomessage'] = "Uso erróneo de este plugin. Se debe llamar a _msg con un mensaje";
 $lang['er_file_format'] = "Archivo subido incorrecto. El Archivo es de un tipo no permitido";
 $lang['er_file_getFromDownload'] = "Imposible capturar el archivo subido";
-$lang['er_file_miss'] = "Uso erróneo de este plugin. Se debe llamar a _odtplus2dw desde un formulario de subida de archivo";
+$lang['er_file_miss'] = "Uso erróneo de este plugin. Se debe llamar a _odtplusplus2dw desde un formulario de subida de archivo";
 $lang['er_file_tmpDir'] = "Imposible crear el directorio temporal de trabajo.";
 $lang['er_file_unzip'] = "Imposible extraer el archivo";
 $lang['er_file_upload'] = "Algo fue mal en la subida del archivo";

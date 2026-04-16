@@ -1,90 +1,75 @@
-# odtplus2dw Plugin
+# odtplusplus2dw Plugin
 
 Create a dokuwiki page from a file.
 
-- More information about odtplus2dw at http://www.dokuwiki.org/plugin:odtplus2dw
-- More information about odt2dw at http://www.dokuwiki.org/plugin:odt2dw
-- More information about dokuwiki at http://www.dokuwiki.org
+- Fork repository: <https://github.com/brozkeff/dokuwiki-plugin-odtplus2dw>
+- Upstream plugin: <http://www.dokuwiki.org/plugin:odtplus2dw>
+- Original ancestor plugin: <http://www.dokuwiki.org/plugin:odt2dw>
+- DokuWiki: <http://www.dokuwiki.org>
 
 ## Description
 
-odtplus2dw is a plugin for dokuwiki (forked from odt2dw to add doc/docx support). This plugin lets you import a document into Dokuwiki. It supports (at least) .odt, .doc, .docx formats. It should also work with any other document format that pandoc supports, but it has not been tested yet.
+`odtplusplus2dw` is a maintenance fork of `odtplus2dw`, itself forked from
+`odt2dw`. It imports documents into DokuWiki pages.
+
+The primary supported path is ODT import.
+
+DOCX and DOC import remain legacy compatibility paths. They now require an
+explicit configuration opt-in because they depend on external converters and
+increase the attack surface. They should be treated as experimental until
+the conversion path is fully hardened.
 
 ## Usage
 
-From a Dokuwiki page, click on the "Import file" button in the Page Tools. Select a File and click upload.
+From a Dokuwiki page, click on the "Import file" button in the Page Tools.
+Select a file and click upload.
 
-## Installation 
+## Installation
 
-**External requirements:** This plugin requires the following additional components that must be installed separately:
+Install the plugin under the directory name `odtplusplus2dw`.
 
-- php xsltProcessor class (ex : php-xml, php5-xsl)
-- php zipArchive class
-- pandoc
-- soffice (ex: libreoffice-writer)
+**External requirements for ODT import:**
 
-If you run the Dokuwiki server on Debian, you can accomplish this requirements following this directions:
+- PHP `XSLTProcessor` support
+- PHP `ZipArchive` support
+
+**Additional optional requirements for legacy DOCX and DOC import:**
+
+- `pandoc` for DOCX conversion
+- `soffice` / LibreOffice for DOC conversion
+
+If you run the DokuWiki server on Debian, you can accomplish these
+requirements with the following steps:
 
 - Install some packages needed:
 
-`sudo apt-get install wget default-jre php5-xsl libreoffice-writer`
+`sudo apt-get install php-xml php-zip libreoffice-writer pandoc`
 
-- If you wish, you can execute the script `installLatestPandoc.sh` (included with this plugin) to install the latest version of pandoc. Or you can install pandoc any other way (check that version installed is not very outdated, or the conversion can fail).
+- If you wish, you can execute the script `installLatestPandoc.sh`
+  (included with this plugin) to install the latest version of pandoc.
+  Or you can install pandoc any other way. Check that the installed
+  version is not very outdated, or the conversion can fail.
 
-### soffice conversion (.doc support)
-
-PHP code (at least in my system) is executed by the user `daemon`. I had problems running a Java application with this user (it seems soffice is a Java application) so I decided to run the soffice conversion using `sudo`. To make it work, I had to add a line to the file `/etc/sudoers`. You can do the same executing: 
-
-`sudo echo "daemon ALL=(root)NOPASSWD:/usr/bin/soffice" >> /etc/sudoers`
-
-I'm not a security expert, but I think that this should not be a problem for anybody. If you do not use the soffice conversion (.doc support), you don't need to do this.
-
-If PHP code is executed by any other user on your system, you only have to change it in the previous command.
+This fork no longer documents or recommends `sudo` for document conversion.
+If you enable legacy DOCX or DOC import, run the required converters only in a
+local setup you trust and validate.
 
 ## Configuration and Settings
 
-They are almost self-explanatory.
+The most important settings are:
 
-## Change Log
+- `enableUnsafeLegacyConverters`: disabled by default; enable only if you need
+  DOCX or DOC import and have validated the local converter setup.
+- `parserMimeTypeAuthorized`: ODT-focused by default.
+- `parserMimeTypePandoc` and `parserMimeTypeSOffice`: legacy converter MIME
+  lists used only when the opt-in is enabled.
 
-### v0.12 beta
+## Compatibility
 
-- Fixed: https://github.com/qky666/dokuwiki-plugin-odtplus2dw/issues/8
+- Required compatibility target: DokuWiki 2023 and PHP 7.4
+- Primary maintenance target: DokuWiki 2025 "Librarian" and PHP 8.2, 8.3, and
+  newer compatible PHP 8 releases
 
-### v0.11 beta
+## Changelog
 
-- Now the names of uploaded files can contain spaces.
-- Added French translation (thank you jmgfr!).
-
-### v0.10 beta
-
-- Changed name to odtplus2dw.
-- Added doc/docx support.
-- Added spanish translation.
-- Removed some translations (I can't update them, so I had to remove).
-
-### v0.09 beta
-
-- Adjust method signatures to match parent.
-- Add import button.
-
-### v0.08 beta
-
-- Fixed : bug #9.
-- Fixed : bug #14.
-
-### v0.07 beta
-
-- Fixed : parserPostDisplay now works with choice edit or preview.
-- Fixed : better class existence control.
-
-### v0.06 beta
-
-- Fixed : some small fixes to the english messages.
-- Add : message translation in Dutch (By mprins).
-- Fixed : check for mime type was too specific : It could be set in config panel.
-- Fixed : submit button was not translated and stay in french : His value depend of the dokuwiki lang file now.
-
-### v0.05 beta
-
-- Fixed : display an error if the parserUploadDir directory doesn't exists. Now it will be create if needed.
+See [CHANGELOG.md](CHANGELOG.md).

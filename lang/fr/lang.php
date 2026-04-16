@@ -15,7 +15,7 @@ $lang['formPageExistMessage'] = "<color red> **ATTENTION!!! Cette page existe d�
 ";
 $lang['import_button'] = "Importer un fichier";
 
-$lang['parserSummary'] = "Page créée par le plugin odtplus2dw depuis un fichier";
+$lang['parserSummary'] = "Page créée par le plugin odtplusplus2dw depuis un fichier";
 $lang['parserOriginalFile'] = "Fichier original";
 
 $lang['xsl_subtable_message'] = "FIXME: Un tableau complexe a été détecté, des corrections manuelles seront propablement nécessaires.";
@@ -39,17 +39,17 @@ $lang['er_checkUploadResult'] = "Le fichier envoyé semble incorrect";
 $lang['er_class_domDocument'] = "Erreur fatale: L'initialisation de l'objet DOMDocument à échouée";
 $lang['er_class_xsltProcessor'] = "Erreur fatale: L'initialisation de l'objet XsltProcessor à échouée";
 $lang['er_class_zipArchive'] = "Erreur fatale: L'initialisation de l'objet ZipArchive à échouée";
-$lang['er_id'] = "Usage incorrect du plugin. _odtplus2dw doit être utilisé depuis la page ou l'espace de nom (\$ID)";
+$lang['er_id'] = "Usage incorrect du plugin. _odtplusplus2dw doit être utilisé depuis la page ou l'espace de nom (\$ID)";
 $lang['er_img_rename'] = "Impossible de renommer le fichier image";
 $lang['er_img_unzip'] = "Impossible d'extraire le fichier image";
 $lang['er_invalidRoot'] = "Le document envoyé ne peut être ouvert. Il est peut-être corrompu.";
 $lang['er_loadXml'] = "Impossible de lire le contenu du document envoyé. Il est peut-être corrompu.";
 $lang['er_loadXsl'] = "Le fichier Xsl est incorrect (syntaxe xml). Merci de corriger le fichier.";
 $lang['er_logFile'] = "Impossible d'écrire dans le fichier journal";
-$lang['er_msg_nomessage'] = "Usage incorrect du plugin. _odtplus2dw doit être appelé avec des arguments";
+$lang['er_msg_nomessage'] = "Usage incorrect du plugin. _odtplusplus2dw doit être appelé avec des arguments";
 $lang['er_file_format'] = "Fichier téléversé icorrect. Ce type de fichier n'est pas supporté.";
 $lang['er_file_getFromDownload'] = "Unable to catch the upload file";
-$lang['er_file_miss'] = "Usage incorrect du plugin. _odtplus2dw doit être appelé depuis un formulaire d'importationde fichier";
+$lang['er_file_miss'] = "Usage incorrect du plugin. _odtplusplus2dw doit être appelé depuis un formulaire d'importationde fichier";
 $lang['er_file_tmpDir'] = "Création du répertoire temporaire impossible.";
 $lang['er_file_unzip'] = "Impossible d'extraire le fichier";
 $lang['er_file_upload'] = "Une erreur s'est produite avec le fichier envoyé";

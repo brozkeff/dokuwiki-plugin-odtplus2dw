@@ -5,13 +5,14 @@
  * @license     GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author      Greg BELLAMY <garlik.crx@gmail.com> [Gag]
  * @author      José Torrecilla <qky669@gmail.com>
- * @version     0.11beta
+ * @author      Martin "brozkeff" Malec <martin@brozkeff.net>
+ * @version     0.13a1
  */
 // must be run within Dokuwiki
 if(!defined('DOKU_INC')) die();
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN', DOKU_INC . 'lib/plugins/');
 
-class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
+class action_plugin_odtplusplus2dw extends DokuWiki_Action_Plugin {
 
   /**
   * Registers a callback function for a given event
@@ -36,7 +37,7 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     global $conf;
 
     if($event->data['view'] == 'page') {
-      array_push($event->data['items'],new \dokuwiki\plugin\odtplus2dw\MenuItem());
+      array_push($event->data['items'],new \dokuwiki\plugin\odtplusplus2dw\MenuItem());
     }
   }
 
@@ -51,7 +52,7 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     global $ID, $REV, $conf;
 
     if($this->getConf('showimportbutton') && $event->data['view'] == 'main') {
-      $params = array('do' => 'odtplus2dw');
+      $params = array('do' => 'odtplusplus2dw');
       if($REV) { 
         $params['rev'] = $REV;
       }
@@ -76,7 +77,7 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     // Check if the current action is in the action allow table
     if ( strpos( $this->getConf('formDisplayRule'), $event->data) === false ) return;
     // Check if the page exists
-    if ( page_exists( $ID ) && $event->data != "odtplus2dw" ) return;
+    if ( page_exists( $ID ) && $event->data != "odtplusplus2dw" ) return;
     if ( page_exists( $ID ) ) echo p_render('xhtml',p_get_instructions( $this->getLang( 'formPageExistMessage' ) ), $info );
     // Check auth user can edit this page
     if ( auth_quickaclcheck( $ID ) < AUTH_EDIT ) return;
@@ -89,22 +90,22 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
             <fieldset>
               <legend>'.$this->getLang('formLegend').'</legend>
               <input type="hidden" name="MAX_FILE_SIZE" value="'.$this->getConf('formMaxFileSize').'"/>
-              <input type="hidden" name="do" value="odtplus2dw"/>
+              <input type="hidden" name="do" value="odtplusplus2dw"/>
               <input type="hidden" name="id" value="'.$ID.'"/>
               <input type="file" name="userFile"/>
               <input type="submit" value="'.$lang['btn_upload'].'"/>
             </fieldset>
           </form>';
-    if ( $event->data == 'odtplus2dw' ) $event->preventDefault();
+    if ( $event->data == 'odtplusplus2dw' ) $event->preventDefault();
   }
 
   function _parser(&$event, $param) {
-    ### _parser : check if a file migth be uploaded, then call the odtplus2dw converter
+    ### _parser : check if a file migth be uploaded, then call the odtplusplus2dw converter
     # INPUT : it's a dokuwiki event function
     # OUTPUT : void
 
     // Check action is odt2dw
-    if ( $event->data != 'odtplus2dw' ) return;
+    if ( $event->data != 'odtplusplus2dw' ) return;
 
     ###Preparation of the message renderer
     //Set the debug lvl
@@ -121,9 +122,9 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
 
     // Check upload file defined
     $retour = false;
-    if ( $_FILES['userFile'] ) {
+    if ( ! empty( $_FILES['userFile'] ) ) {
       // If parse work, change action to defined one in conf/local.php file
-      $retour = $this->_odtplus2dw();
+      $retour = $this->_odtplusplus2dw();
       # Delete temp file
       $this->_purge_env();
     }
@@ -141,13 +142,13 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     ###
   }
 
-  function _odtplus2dw() {
-    ### _odtplus2dw : Translate a supported file into dokuwiki syntax
+  function _odtplusplus2dw() {
+    ### _odtplusplus2dw : Translate a supported file into dokuwiki syntax
     # OUTPUT :
     #   * true -> process successfully finished
     #   * false -> something wrong; using _msg to display what's wrong
 
-    global $ID, $conf;
+    global $ID;
 
     //Table use to convert urn to url -> without this, xslProc won't parse correctly
     //Table corrigeant les attributs de la racine du fichier content.xml : urn -> url
@@ -206,7 +207,7 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
 
     // Check the xslFile
     if ( ! $this->getConf( 'parserXslFile' ) )  return $this->_msg('er_xslFile_notset');
-    $this->xslFile = DOKU_PLUGIN.'odtplus2dw/'.$this->getConf('parserXslFile');
+    $this->xslFile = DOKU_PLUGIN.'odtplusplus2dw/'.$this->getConf('parserXslFile');
     if ( ! file_exists($this->xslFile) ) return $this->_msg('er_xslFile_exists');
     if ( ! is_file($this->xslFile) ) return $this->_msg('er_xslFile_isfile');
 
@@ -310,7 +311,7 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     if ( !$force && $err != -1 && $this->debug < 3 ) return true;
     // Otherwise display the message
     $content = $output.' : '.$this->getLang( $output ).( is_array( $message ) ? ' : '.$message[1] : '' );
-    msg( 'odtplus2dw : '.$content, $err );
+    msg( 'odtplusplus2dw : '.$content, $err );
     if ( isset( $this->logFileHandle ) ) fwrite( $this->logFileHandle, date(DATE_ATOM).':'.$_SERVER['REMOTE_USER'].':'.$content.'
 ' );
     // If error message, return false
@@ -327,20 +328,15 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     #   * true -> process successfully
     #   * false -> something wrong; using _msg to display what's wrong
     // Check a file will be upload
-    if ( ! $_FILES['userFile'] ) return $this->_msg('er_file_miss');
+    if ( empty( $_FILES['userFile'] ) ) return $this->_msg('er_file_miss');
     // Check the file status
     if ( $_FILES['userFile']['error'] > 0 ) return $this->_msg( array( 'er_file_upload', $_FILES['userFile']['error'] ) );
     // Check the file has an authorized mimetype
-    if ( $this->getConf( 'parserMimeTypeAuthorized' ) != "" && strpos( $this->getConf( 'parserMimeTypeAuthorized' ), $_FILES['userFile']['type'] ) === false ) return $this->_msg( array( 'er_file_format', $_FILES['userFile']['type'] ) );
+    if ( ! $this->_isAuthorizedMimeType( $_FILES['userFile']['type'] ) ) return $this->_msg( array( 'er_file_format', $_FILES['userFile']['type'] ) );
 
-    // Create an unique temp work dir name
-    while ( file_exists( $this->uploadDir = $this->getConf( 'parserUploadDir' ).rand( 10000, 100000 ) ) ) {};
-    // Create the directory
-    if ( ! mkdir( $this->uploadDir, 0777, true ) ) return $this->_msg( 'er_file_tmpDir' );
-    // Chmod. Maybe not required, but we keep it beacause using soffice sometimes is not easy...
-    chmod( $this->uploadDir, 0777 );
+    if ( ! $this->_createUploadDir() ) return $this->_msg( 'er_file_tmpDir' );
     // Move the upload file into the work directory
-    $this->userFileName = $_FILES['userFile']['name'];
+    $this->userFileName = $this->_sanitizeUploadFileName( $_FILES['userFile']['name'] );
     $this->userFile = $this->uploadDir.'/'.$this->userFileName;
     if ( ! move_uploaded_file( $_FILES['userFile']['tmp_name'], $this->userFile ) ) return $this->_msg('er_file_getFromDownload');
 
@@ -350,23 +346,19 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     $this->odtFile = substr($this->userFile, 0);
     
     // Add Pandoc support
-    if ( $this->getConf( 'parserMimeTypePandoc' ) != "" && strpos( $this->getConf( 'parserMimeTypePandoc' ), $_FILES['userFile']['type'] ) !== false ) {
-    
+    if ( $this->_isLegacyConverterEnabled() && $this->_mimeTypeListContains( $this->getConf( 'parserMimeTypePandoc' ), $_FILES['userFile']['type'] ) ) {
       $this->_prepareOdtFileName();
-
-      $output = array();
-      // Conversion to odt file
-      exec( 'pandoc -s -w odt -o "' . $this->odtFile . '" "' . $this->userFile . '"', $output, $return_var );
+      if ( ! $this->_runCommand( 'pandoc -s -w odt -o ' . escapeshellarg( $this->odtFile ) . ' ' . escapeshellarg( $this->userFile ) ) ) {
+        return false;
+      }
     }
-    
+
     // Add SOffice support
-    if ( $this->getConf( 'parserMimeTypeSOffice' ) != "" && strpos( $this->getConf( 'parserMimeTypeSOffice' ), $_FILES['userFile']['type'] ) !== false ) {
-      
+    if ( $this->_isLegacyConverterEnabled() && $this->_mimeTypeListContains( $this->getConf( 'parserMimeTypeSOffice' ), $_FILES['userFile']['type'] ) ) {
       $this->_prepareOdtFileName();
- 
-      $output = array();
-      // Conversion to odt file
-      exec( 'cd ' . $this->uploadDir . ' && sudo soffice --nofirststartwizard --headless --convert-to odt:"writer8" "' . $this->userFileName . '"', $output, $return_var );
+      if ( ! $this->_runCommand( 'soffice --nofirststartwizard --headless --convert-to odt:"writer8" --outdir ' . escapeshellarg( $this->uploadDir ) . ' ' . escapeshellarg( $this->userFile ) ) ) {
+        return false;
+      }
     }
 
     // All upload file checking are OK
@@ -380,6 +372,57 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     $this->odtFile = $this->uploadDir.'/'. $this->odtFileName;
   }
 
+  function _isLegacyConverterEnabled() {
+    return (bool) $this->getConf( 'enableUnsafeLegacyConverters' );
+  }
+
+  function _mimeTypeListContains( $mimeList, $mimeType ) {
+    if ( $mimeList === '' ) return false;
+    $mimeValues = preg_split( '/\s+/', trim( $mimeList ) );
+    return in_array( $mimeType, $mimeValues, true );
+  }
+
+  function _isAuthorizedMimeType( $mimeType ) {
+    if ( $this->getConf( 'parserMimeTypeAuthorized' ) === '' ) return true;
+    if ( $this->_mimeTypeListContains( $this->getConf( 'parserMimeTypeAuthorized' ), $mimeType ) ) return true;
+    if ( ! $this->_isLegacyConverterEnabled() ) return false;
+    if ( $this->_mimeTypeListContains( $this->getConf( 'parserMimeTypePandoc' ), $mimeType ) ) return true;
+    if ( $this->_mimeTypeListContains( $this->getConf( 'parserMimeTypeSOffice' ), $mimeType ) ) return true;
+    return false;
+  }
+
+  function _createUploadDir() {
+    $baseDir = rtrim( $this->getConf( 'parserUploadDir' ), '/' );
+    if ( ! ( file_exists( $baseDir ) || mkdir( $baseDir, 0700, true ) ) ) return false;
+    $suffix = '';
+    try {
+      $suffix = bin2hex( random_bytes( 8 ) );
+    } catch ( Exception $exception ) {
+      $suffix = uniqid( '', true );
+    }
+    $this->uploadDir = $baseDir.'/upload_'.$suffix;
+    if ( ! mkdir( $this->uploadDir, 0700 ) ) return false;
+    return true;
+  }
+
+  function _sanitizeUploadFileName( $fileName ) {
+    $safeName = basename( (string) $fileName );
+    $safeName = preg_replace( '/[^A-Za-z0-9._ -]/', '_', $safeName );
+    $safeName = trim( $safeName, '. ' );
+    if ( $safeName === '' ) return 'upload.odt';
+    return $safeName;
+  }
+
+  function _runCommand( $command ) {
+    $output = array();
+    $return_var = 0;
+    exec( $command . ' 2>&1', $output, $return_var );
+    if ( $return_var !== 0 || ! file_exists( $this->odtFile ) ) {
+      return $this->_msg( array( 'er_transform', implode( "\n", $output ) ) );
+    }
+    return true;
+  }
+
   function _purge_env() {
     ### _purge_env : clean the system from temporary file ###
     # OUTPUT :
@@ -389,6 +432,11 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     // Perhaps this would not be needed if use temp dir.
     // No timeOut : the cleanning process wont be interrupted.
     set_time_limit(0);
+    $uploadDir = isset( $this->uploadDir ) ? rtrim( $this->uploadDir, '/' ) : '';
+    $pictureDir = '';
+    if ( $uploadDir !== '' && isset( $this->pictpath ) && $this->pictpath !== '' ) {
+      $pictureDir = $uploadDir.'/'.$this->pictpath;
+    }
     // use @ to catch the system error message
     // If exists, delete the download file
     if ( file_exists( $this->odtFile ) ) if ( ! @unlink( $this->odtFile ) ) $this->_msg( array( 'er_pg_file', $this->odtFile ) );
@@ -396,11 +444,11 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     // Delete each file extracted for the uploaded file
     if ( $this->file_extract ) foreach ($this->file_extract as $file) if ( file_exists( $file ) ) if ( ! @unlink( $file ) ) $this->_msg( array( 'er_pg_file', $file ) );
     // Delete each image than would be renamed and not moved to the wiki
-    if ( $this->file_import ) foreach ( $this->file_import as $file ) if ( file_exists( $this->uploadDir.'/'.$this->pictpath.'/'.$file ) ) if ( ! @unlink( $this->uploadDir.'/'.$this->pictpath.'/'.$file ) ) $this->_msg( array( 'er_pg_file', $this->uploadDir.'/'.$this->pictpath.'/'.$file ) );
+    if ( $pictureDir !== '' && $this->file_import ) foreach ( $this->file_import as $file ) if ( file_exists( $pictureDir.'/'.$file ) ) if ( ! @unlink( $pictureDir.'/'.$file ) ) $this->_msg( array( 'er_pg_file', $pictureDir.'/'.$file ) );
     // Delete the Pictures directory
-    if ( file_exists( $this->uploadDir.'/'.$this->pictpath) ) if ( ! @rmdir( $this->uploadDir.'/'.$this->pictpath ) ) $this->_msg( array( 'er_pg_dir', $this->uploadDir.'/'.$this->pictpath ) );
+    if ( $pictureDir !== '' && file_exists( $pictureDir ) ) if ( ! @rmdir( $pictureDir ) ) $this->_msg( array( 'er_pg_dir', $pictureDir ) );
     // Than delete the temporary directory
-    if ( file_exists( $this->uploadDir ) ) if ( ! @rmdir( $this->uploadDir ) ) $this->_msg( array( 'er_pg_dir', $this->uploadDir ) );
+    if ( $uploadDir !== '' && $uploadDir !== '.' && $uploadDir !== '/' && file_exists( $uploadDir ) ) if ( ! @rmdir( $uploadDir ) ) $this->_msg( array( 'er_pg_dir', $uploadDir ) );
     // Set back default timeOut
     set_time_limit(30);
   }
@@ -435,7 +483,7 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     saveWikiText( $this->pageName, $this->result, $this->getLang( 'parserSummary' ).$this->userFileName );
     if ( ! page_exists($this->pageName) ) return $this->_msg('er_apply_content');
     // Check if the user could upload file (ACL : permission lvl 8)
-    if ( auth_quickaclcheck($ID) >= AUTH_UPLOAD ) {
+    if ( auth_quickaclcheck($this->pageName) >= AUTH_UPLOAD ) {
       // Import the image file in the mediaManager (data/media)
       $destDir = mediaFN( $this->nsName );
       if ( ! ( file_exists( $destDir ) || mkdir( $destDir, 0777, true ) ) ) return $this->_msg( array( 'er_apply_dirCreate' ) );
@@ -513,6 +561,7 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     #   * false -> something wrong; using _msg to display what's wrong
 
     if ( ! $this->ZIP ) return $this->_msg('er_unzip_object');
+    if ( ! $this->_isSafeArchiveEntry( $entrie ) ) return $this->_msg( array( 'er_unzip_error', $entrie ) );
     if ( ! file_exists( $this->odtFile ) ) return $this->_msg('er_unzip_nofile');
     if ( ! ( $this->ZIP->open( $this->odtFile ) === true ) ) return $this->_msg( 'er_unzip_open' );
     $res = $this->ZIP->extractTo( $this->uploadDir, $entrie );
@@ -520,6 +569,14 @@ class action_plugin_odtplus2dw extends DokuWiki_Action_Plugin {
     if ( ! $res ) return $this->_msg( array( 'er_unzip_error', $entrie ) );
     $this->file_extract[] = $this->uploadDir.'/'.$entrie;
     return $this->_msg( array( 'ok_unzip', $entrie ) );
+  }
+
+  function _isSafeArchiveEntry( $entrie ) {
+    if ( ! is_string( $entrie ) || $entrie === '' ) return false;
+    if ( strpos( $entrie, "\0" ) !== false ) return false;
+    if ( strpos( $entrie, '..' ) !== false ) return false;
+    if ( $entrie[0] === '/' || $entrie[0] === '\\' ) return false;
+    return true;
   }
 
 }

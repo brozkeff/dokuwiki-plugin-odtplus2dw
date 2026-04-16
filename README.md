@@ -43,7 +43,7 @@ requirements with the following steps:
 
 - Install some packages needed:
 
-`sudo apt-get install php-xml php-zip libreoffice-writer pandoc`
+`sudo apt-get install php-xml php-zip libreoffice-java-common libreoffice-writer pandoc`
 
 - If you wish, you can execute the script `installLatestPandoc.sh`
   (included with this plugin) to install the latest version of pandoc.
